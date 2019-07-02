@@ -114,7 +114,7 @@ class MetaTab
 
         // set JS url
         if (!self::$props[$this->getId()]['jsuri']) {
-            self::$props[$this->getId()]['jsuri'] = $this->getCurrentDirUrl(__DIR__ . '../../asset/js/cmb2multiopts.js');
+            self::$props[$this->getId()]['jsuri'] = $this->getCurrentDirUrl(__DIR__ . '/../../asset/js/cmb2multiopts.js');
         }
 
         // set columns to 1 if illegal value sent
@@ -805,6 +805,10 @@ class MetaTab
 
     public function getCurrentDirUrl($path, $protocol = 'http://')
     {
-        return $protocol . $_SERVER['HTTP_HOST'] . str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath($path));
+        if (defined('WP_SITEURL')) {
+            return WP_SITEURL . str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath($path));
+        } else {
+            return $protocol . $_SERVER['HTTP_HOST'] . str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath($path));
+        }
     }
 }
