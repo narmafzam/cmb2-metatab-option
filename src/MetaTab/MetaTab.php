@@ -154,7 +154,7 @@ class MetaTab
         // Include CSS for this options page as style tag in head, if tabs are configured
         add_action(
             'admin_head',
-            array( $this, 'add_css' )
+            array( $this, 'addCss' )
         );
 
         // Adds JS to foot
@@ -225,13 +225,13 @@ class MetaTab
         // Adds existing metaboxes, see note in function, called here as we need the screen ID
         add_action(
             'add_meta_boxes_' . self::$props[ $this->getId() ]['hook'],
-            array( $this, 'add_metaboxes' )
+            array( $this, 'addMetaBoxes' )
         );
 
         // On page load, do "metaboxes" actions, called here as we need the screen ID
         add_action(
             'load-' . self::$props[ $this->getId() ]['hook'],
-            array( $this, 'do_metaboxes' )
+            array( $this, 'doMetaBoxes' )
         );
 
         // Allows pages to call actions
@@ -273,7 +273,7 @@ class MetaTab
             self::$props[ $this->getId() ]['menuargs']['menu_slug'] : self::$props[ $this->getId() ]['key'];
 
         // top[4], sub[5] : callable function
-        $args[] = array( $this, 'admin_page_display' );
+        $args[] = array( $this, 'adminPageDisplay' );
 
         // top menu icon and menu position
         if ( ! $parent ) {
