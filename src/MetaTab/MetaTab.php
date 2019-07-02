@@ -110,7 +110,7 @@ class MetaTab
 
         // set JS url
         if ( ! self::$props[ $this->getId() ]['jsuri'] ) {
-            self::$props[ $this->getId() ]['jsuri'] = plugin_dir_url( __FILE__ ) . 'cmb2multiopts.js';
+            self::$props[ $this->getId() ]['jsuri'] = plugin_dir_url( __FILE__ ) . '../../asset/js/cmb2multiopts.js';
         }
 
         // set columns to 1 if illegal value sent
