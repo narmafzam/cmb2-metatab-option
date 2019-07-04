@@ -806,7 +806,7 @@ class MetaTab
     public function getPathUrl($path, $protocol = 'http://')
     {
         if (defined('WP_SITEURL')) {
-            return WP_SITEURL . str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath($path));
+            return (rtrim(WP_SITEURL,"/").'/') . str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath($path));
         } else {
             return $protocol . $_SERVER['HTTP_HOST'] . str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath($path));
         }
