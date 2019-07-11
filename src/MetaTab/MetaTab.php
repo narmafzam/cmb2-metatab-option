@@ -810,11 +810,10 @@ class MetaTab
         } elseif (function_exists('get_site_url')) {
             $url = get_site_url();
         }
-        $url = rtrim($url, '/');
         if (function_exists('get_home_path')) {
             $url .= str_replace(get_home_path(), '', realpath($path));
         } else {
-            $url .= str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath($path));
+            $url = rtrim($url, '/') . str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath($path));
         }
         return $url;
     }
