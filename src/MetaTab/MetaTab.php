@@ -112,11 +112,6 @@ class MetaTab
             throw new Exception($this . ': Settings key missing.');
         }
 
-        // set JS url
-        if (!self::$props[$this->getId()]['jsuri']) {
-            self::$props[$this->getId()]['jsuri'] = $this->getPathUrl(__DIR__ . '/../../asset/js/cmb2multiopts.js');
-        }
-
         // set columns to 1 if illegal value sent
         self::$props[$this->getId()]['cols'] = intval(self::$props[$this->getId()]['cols']);
         if (self::$props[$this->getId()]['cols'] > 2 || self::$props[$this->getId()]['cols'] < 1) {
@@ -307,8 +302,12 @@ class MetaTab
 
     public function addScripts()
     {
-
         global $hook_suffix;
+
+        // set JS url
+        if (!self::$props[$this->getId()]['jsuri']) {
+            self::$props[$this->getId()]['jsuri'] = $this->getPathUrl(__DIR__ . '/../../asset/js/cmb2multiopts.js');
+        }
 
         // do not run if not a CMO page
         if ($hook_suffix !== self::$props[$this->getId()]['hook']) {
@@ -811,7 +810,7 @@ class MetaTab
         } elseif (function_exists('get_site_url')) {
             $url = get_site_url();
         }
-        $url = rtrim($url, '/') . '/';
+        $url = rtrim($url, '/');
         if (function_exists('get_home_path')) {
             $url .= str_replace(get_home_path(), '', realpath($path));
         } else {
