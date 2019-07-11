@@ -803,12 +803,21 @@ class MetaTab
         return get_class($this);
     }
 
-    public function getPathUrl($path, $protocol = 'http://')
+    public function getPathUrl($path)
     {
+        $url  = '';
         if (defined('WP_SITEURL')) {
-            return WP_SITEURL . str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath($path));
-        } else {
-            return $protocol . $_SERVER['HTTP_HOST'] . str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath($path));
+            $url = WP_SITEURL ;
+        } elseif (function_exists('get_site_url')) {
+            $url = get_site_url();
         }
+        $url = rtrim($url, '/') . '/';
+        if (function_exists('get_home_path')) {
+            $url .= str_replace(get_home_path(), '', realpath($path));
+        } else {
+            $url .= str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath($path));
+        }
+        return $url;
     }
+
 }
