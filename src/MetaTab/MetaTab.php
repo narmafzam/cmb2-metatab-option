@@ -306,7 +306,7 @@ class MetaTab
 
         // set JS url
         if (!self::$props[$this->getId()]['jsuri']) {
-            self::$props[$this->getId()]['jsuri'] = $this->getPathUrl(__DIR__ . '/../../asset/js/cmb2multiopts.js');
+            self::$props[$this->getId()]['jsuri'] = $this->getPathUrl('/js/cmb2multiopts.js');
         }
 
         // do not run if not a CMO page
@@ -804,17 +804,14 @@ class MetaTab
 
     public function getPathUrl($path)
     {
-        $url  = '';
-        if (defined('WP_SITEURL')) {
-            $url = WP_SITEURL ;
+        $url = '';
+        if (defined('WP_STATIC')) {
+            $url = WP_STATIC;
         } elseif (function_exists('get_site_url')) {
-            $url = get_site_url();
+            $url = preg_replace('/^(?:https?:\/\/)?(?:www\.)?/', '$0s.', get_site_url());
         }
-        if (function_exists('get_home_path')) {
-            $url = rtrim($url, '/') . '/' . str_replace(get_home_path(), '', realpath($path));
-        } else {
-            $url = rtrim($url, '/') . str_replace($_SERVER['DOCUMENT_ROOT'], '', realpath($path));
-        }
+        $home = strrchr(dirname(dirname(__DIR__)), '/');
+        $url = rtrim(rtrim($url, '/') . '/vendor' . $home, '/') . $path;
         return $url;
     }
 
