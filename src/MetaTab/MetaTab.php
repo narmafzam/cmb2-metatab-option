@@ -651,7 +651,7 @@ class MetaTab
         $ret .= '<div id="poststuff">';
 
         // main column
-        $ret .= '<div id="post-body" class="metabox-holder columns-' . self::$props[$this->getId()]['cols'] . '">';
+//        $ret .= '<div id="post-body" class="metabox-holder columns-' . self::$props[$this->getId()]['cols'] . '">';
 
         // if two columns are called for
         if (self::$props[$this->getId()]['cols'] == 2) {
@@ -686,7 +686,7 @@ class MetaTab
 
         $ret .= ob_get_clean();
 
-        $ret .= '</div></div></div>';
+        $ret .= '</div></div>';
 
         // add submit button if resettxt or savetxt was included
         if (self::$props[$this->getId()]['resettxt'] || self::$props[$this->getId()]['savetxt']) {
